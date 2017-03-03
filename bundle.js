@@ -68,21 +68,62 @@
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
+
+const Router = __webpack_require__(1);
 
 document.addEventListener("DOMContentLoaded", () => {
+  let content = document.querySelector(".content");
+  let router = new Router(content);
+  router.start();
 
-  const setWindowHash = (e) => {
-    const li = e.target;
-    const newLocation = li.innerText.toLowerCase();
-    console.log(newLocation.toLowerCase);
-    window.location.hash = newLocation;
-  };
+  // const setWindowHash = (e) => {
+  //   const li = e.target;
+  //   const newLocation = li.innerText.toLowerCase();
+  //   console.log(newLocation.toLowerCase);
+  //   window.location.hash = newLocation;
+  // };
 
-  document.querySelectorAll(".sidebar-nav li").forEach( (li) => {
-    li.addEventListener("click", setWindowHash);
+  let navItems = Array.from(document.querySelectorAll(".sidebar-nav li"));
+  navItems.forEach( (li) => {
+    li.addEventListener("click", () => {
+      let name = li.innerText.toLowerCase();
+      location.hash = name;
+    });
   });
 });
+
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports) {
+
+class Router {
+  constructor(node) {
+    this.node = node;
+  }
+
+  start() {
+    this.render();
+    window.addEventListener("hashchange", () => {
+      this.render();
+    });
+  }
+
+  render() {
+    this.node.innerHTML = "";
+    let currentRoute = this.activeRoute();
+    let newP = document.createElement("p");
+    newP.innerHTML = currentRoute;
+    this.node.appendChild(newP);
+  }
+
+  activeRoute() {
+    return window.location.hash.slice(1);
+  }
+}
+
+module.exports = Router;
 
 
 /***/ })

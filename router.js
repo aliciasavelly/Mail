@@ -19,6 +19,8 @@ class Router {
   }
 
   activeRoute() {
-
+    return window.location.hash.slice(1);
   }
 }
+
+module.exports = Router;
