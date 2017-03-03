@@ -4,14 +4,17 @@ class Router {
   }
 
   start() {
+    this.render();
+    window.addEventListener("hashchange", () => {
+      this.render();
+    });
+  }
+
+  render() {
 
   }
 
   activeRoute() {
 
-  }
-
-  render() {
-    
   }
 }
