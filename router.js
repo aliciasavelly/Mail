@@ -11,7 +11,11 @@ class Router {
   }
 
   render() {
-
+    this.node.innerHTML = "";
+    let currentRoute = this.activeRoute();
+    let newP = document.createElement("p");
+    newP.innerHTML = currentRoute;
+    this.node.appendChild(newP);
   }
 
   activeRoute() {
